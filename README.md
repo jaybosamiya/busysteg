@@ -37,13 +37,13 @@ make
 Hide data into an image using:
 
 ```
-./busysteg <image path> <data file path>
+./busysteg h <image path> <data path> <output image path>
 ```
 
 Extract data from the image using:
 
 ```
-./busysteg <image path>
+./busysteg x <image path> <output data path>
 ```
 
 ## License

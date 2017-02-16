@@ -37,6 +37,12 @@ In the above image, the text hidden is
 
 Quite a fitting caption actually.
 
+### Bitplane analysis
+
+A [bitplane](https://github.com/jaybosamiya/bitplanes) analysis on the image shows no visible artefacts.
+
+![Bitplane Analysis](pics/bitplanes.png)
+
 ## Usage
 
 The code requires OpenCV 2.x, and CMake installed.

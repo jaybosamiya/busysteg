@@ -191,16 +191,17 @@ void hide_data(char* inimg, char* indata, char* outimg) {
   fin.seekg(0, ios_base::end);
   fsize = fin.tellg() - fsize;
   fin.seekg(0, ios_base::beg);
-  char *buf = new char[fsize + 8];
-  memcpy(buf, &fsize, 8);
-  fin.read(buf + 8, fsize);
+  char *buf = new char[fsize + 16];
+  memcpy(buf, "BUSYSTEG", 8);
+  memcpy(buf + 8, &fsize, 8);
+  fin.read(buf + 16, fsize);
   fin.close();
   info("Read data");
 
   vector<Energy> pts = energy_order(img);
   info("Found energy ordering");
 
-  write_into(img, pts, buf, fsize + 8);
+  write_into(img, pts, buf, fsize + 16);
   info("Updated pixel values");
 
   imwrite(outimg, img);
@@ -216,16 +217,22 @@ void extract_data(char *inimg, char* outdata) {
   vector<Energy> pts = energy_order(img);
   info("Found energy ordering");
 
+  char header[16];
+  read_from(img, pts, header, 16);
+  if ( memcmp(header, "BUSYSTEG", 8) != 0 ) {
+    fatalerror("Not a busysteg encoded image");
+  }
+
   long int fsize;
-  read_from(img, pts, (char*)&fsize, 8);
+  memcpy(&fsize, header+8, 8);
   info("Found data length");
 
-  char *buf = new char[fsize];
-  read_from(img, pts, buf, fsize + 8);
+  char *buf = new char[fsize + 16];
+  read_from(img, pts, buf, fsize + 16);
   info("Loaded data from pixels");
 
   ofstream fout(outdata, ios_base::binary);
-  fout.write(buf + 8, fsize);
+  fout.write(buf + 16, fsize);
   fout.close();
   info("Finished writing data");
 

@@ -21,6 +21,22 @@ The implemented technique is resistant against:
 3. Structural attacks
 4. Statistical attacks
 
+## Example
+
+### Original Image
+
+![original image](pics/orig.png)
+
+### Image with text hidden
+
+![Encoded image](pics/encoded.png)
+
+In the above image, the text hidden is
+
+> Beauty lies in the eye of the beholder
+
+Quite a fitting caption actually.
+
 ## Usage
 
 The code requires OpenCV 2.x, and CMake installed.

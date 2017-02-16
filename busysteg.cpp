@@ -116,18 +116,6 @@ vector<Energy> energy_order(Mat img) {
   return energylist;
 }
 
-streampos file_size(const char* path){
-  streampos fsize = 0;
-  ifstream file(path, ios_base::binary );
-
-  fsize = file.tellg();
-  file.seekg( 0, ios_base::end );
-  fsize = file.tellg() - fsize;
-  file.close();
-
-  return fsize;
-}
-
 void write_into(Mat &img, vector<Energy> pts, char *buf, int size) {
   int written = 0;
   char val;

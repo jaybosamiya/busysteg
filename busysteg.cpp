@@ -172,6 +172,9 @@ void read_from(Mat &img, vector<Energy> pts, char* buf, int size) {
 
 void hide_data(char* inimg, char* indata, char* outimg) {
   Mat img = imread(inimg, CV_LOAD_IMAGE_COLOR);
+  if ( ! img.data ) {
+    fatalerror("Could not load image. Please check path.");
+  }
   info("Loaded image");
 
   ifstream fin(indata, ios_base::binary);
@@ -200,6 +203,9 @@ void hide_data(char* inimg, char* indata, char* outimg) {
 
 void extract_data(char *inimg, char* outdata) {
   Mat img = imread(inimg, CV_LOAD_IMAGE_COLOR);
+  if ( ! img.data ) {
+    fatalerror("Could not load image. Please check path.");
+  }
   info("Loaded image");
 
   vector<Energy> pts = energy_order(img);

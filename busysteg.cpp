@@ -170,7 +170,17 @@ void read_from(Mat &img, vector<Energy> pts, char* buf, int size) {
   }
 }
 
+bool is_valid_image_path(char *path) {
+  int l = strlen(path);
+  return strcmp(path + l - 4, ".bmp") == 0 ||
+    strcmp(path + l - 4, ".png") == 0;
+}
+
 void hide_data(char* inimg, char* indata, char* outimg) {
+  if ( !is_valid_image_path(outimg) ) {
+    fatalerror("Output path must be either have .png or .bmp as extension.");
+  }
+
   Mat img = imread(inimg, CV_LOAD_IMAGE_COLOR);
   if ( ! img.data ) {
     fatalerror("Could not load image. Please check path.");

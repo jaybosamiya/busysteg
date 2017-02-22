@@ -178,6 +178,9 @@ void hide_data(char* inimg, char* indata, char* outimg) {
   info("Loaded image");
 
   ifstream fin(indata, ios_base::binary);
+  if ( ! fin.good() ) {
+    fatalerror("Could not read data from file. Please check path.");
+  }
   long int fsize = fin.tellg();
   fin.seekg(0, ios_base::end);
   fsize = fin.tellg() - fsize;

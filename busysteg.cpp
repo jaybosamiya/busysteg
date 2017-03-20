@@ -191,9 +191,9 @@ void hide_data(char* inimg, char* indata, char* outimg) {
   if ( ! fin.good() ) {
     fatalerror("Could not read data from file. Please check path.");
   }
-  long int fsize = fin.tellg();
+  char_traits<char>::pos_type fstart = fin.tellg();
   fin.seekg(0, ios_base::end);
-  fsize = fin.tellg() - fsize;
+  long int fsize = (long int) (fin.tellg() - fstart);
   fin.seekg(0, ios_base::beg);
   char *buf = new char[fsize + 16];
   memcpy(buf, "BUSYSTEG", 8);
